@@ -18,16 +18,12 @@ app.use(cors(corsOptions));
 // Define some routes
 //////////////////////////////////////////////////////////
 app.use(express.static('../public'));
-app.use(express.static('../public/teeny'));
-
 
 //////////////////////////////////////////////////////////
 // Mock data to be read in from server file
 //////////////////////////////////////////////////////////
 global.mockData = {}  // Global variable to hold the mock data
-const MOCK_DATA_FILE = './data/mock_operation_data_2.json';
-// const MOCK_DATA_FILE = './data/mock_operation_data_tiny.json';
-// const MOCK_DATA_FILE = './data/MOCK_DATA_tiny.json';
+const MOCK_DATA_FILE = './data/mock_operation_data_5000.json';
 
 function getData() {  // Function to start async read of the mock data
   fs.readFile(MOCK_DATA_FILE, 'utf8', (error, data) => {
@@ -54,32 +50,12 @@ app.listen(port, () => console.log(`Listening on port ${port}`));
 
 // create a GET route
 app.get('/mock_data', (req, res) => { 
-  // console.log(global.mockData[0]);
   res.send({ 
-    // express: global.mockData
     express: JSON.stringify(global.mockData) === '{}' 
     ? "Loading..."
     : global.mockData
   }); 
 }); 
 
-
-///////////////////////////////////////////////////////////////////////////////////////
-// server.js
-
-// const express = require('express');
-
-// const app = express();
-// const PORT = process.env.PORT = 4000;
-
 app.use(express.static('public'));
 app.use(express.static('public/build'));
-app.use(express.static('public/teeny'));
-app.use(express.static('images'));
-// Map nokia as part of URL path
-app.use('/nokia', express.static('public'));
-// app.use('/build', express.static('public'));
-
-// app.listen(PORT, () => {
-//     console.log("Server is running at: ", PORT);
-// });
